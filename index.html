@@ -545,7 +545,7 @@
                 
                 <div class="team-member">
                     <div class="avatar">BN</div>
-                    <h3>Burxon Normurodov</h3>
+                    <h3>Burxon Nurmurodov</h3>
                     <p class="role">Backend Developer</p>
                    
                     <div class="links">
@@ -634,7 +634,6 @@
         <div class="container">
             <div class="section-header">
                 <h2>How We Plan to Solve It</h2>
-                <span class="rubric">Technical Depth & Innovation 20% | Presentation 10%</span>
                 <p>Data-driven approach combining satellite imagery, weather analytics, and machine learning</p>
             </div>
             
@@ -663,9 +662,9 @@
                 <div class="tech-category">
                     <h3>Technology Stack</h3>
                     <ul>
-                        <li><strong>Backend:</strong> FastAPI (Python 3.10+), GeoPandas, Google Earth Engine API</li>
+                        <li><strong>Backend:</strong> FastAPI, GeoPandas, Google Earth Engine API</li>
                         <li><strong>Frontend:</strong> HTML/CSS/JavaScript, Leaflet.js for map interface</li>
-                        <li><strong>ML Training:</strong> scikit-learn, XGBoost/LightGBM, pandas, numpy</li>
+                        <li><strong>ML Training:</strong> scikit-learn, XGBoost/LightGBM, BERT</li>
                         <li><strong>Deployment:</strong> Railway (backend), Netlify (frontend)</li>
                         <li><strong>Monitoring:</strong> Sentry (errors), structured logging</li>
                     </ul>
@@ -704,12 +703,12 @@
             <div class="card" style="margin-top: 40px;">
                 <h3>Key Implementation Steps</h3>
                 <ul style="padding-left: 20px; list-style: decimal;">
-                    <li style="padding-left: 5px;"><strong>Data Pipeline:</strong> Fetch Sentinel-2 NDVI and weather data for input polygon coordinates</li>
-                    <li style="padding-left: 5px;"><strong>Feature Computation:</strong> Calculate all engineered features (trends, anomalies, deficits)</li>
-                    <li style="padding-left: 5px;"><strong>Model Inference:</strong> Run gradient boosting model to generate 0-100 score with confidence level</li>
-                    <li style="padding-left: 5px;"><strong>Risk Categorization:</strong> Map score to loan recommendation (reject, standard, favorable)</li>
-                    <li style="padding-left: 5px;"><strong>API Response:</strong> Return JSON with score, risk category, NDVI chart data, and interpretation</li>
-                    <li style="padding-left: 5px;"><strong>Caching:</strong> Store results for repeated queries (Redis) to reduce API costs</li>
+                    <li style="padding-left: 5px;"><p>Data Pipeline:</p> Fetch Sentinel-2 NDVI and weather data for input polygon coordinates</li>
+                    <li style="padding-left: 5px;"><p>Feature Computation:</p> Calculate all engineered features (trends, anomalies, deficits)</li>
+                    <li style="padding-left: 5px;"><p>Model Inference:</p> Run gradient boosting model to generate 0-100 score with confidence level</li>
+                    <li style="padding-left: 5px;"><p>Risk Categorization:</p> Map score to loan recommendation (reject, standard, favorable)</li>
+                    <li style="padding-left: 5px;"><p>API Response:</p> Return JSON with score, risk category, NDVI chart data, and interpretation</li>
+                    <li style="padding-left: 5px;"><p>Caching:</p> Store results for repeated queries (Redis) to reduce API costs</li>
                 </ul>
             </div>
         </div>
@@ -733,3 +732,4 @@
     </footer>
 </body>
 </html>
+
