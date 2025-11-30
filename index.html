@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FieldScore AI - Smallholder farm risk scoring for Agri-lenders using satellite data and AI. AI500 Hackathon Stage 1 Submission.">
+    <title>FieldScore AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #ffffff;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #0f4c2e 0%, #1a5c3d 50%, #2d8659 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .hero .tagline {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+        
+        .hero .subtitle {
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-top: 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 60px 20px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #0f4c2e;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .section-header .rubric {
+            display: inline-block;
+            background: #e7f3ff;
+            color: #0066cc;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .section-header p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid #2d8659;
+        }
+        
+        .card h3 {
+            color: #0f4c2e;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .card ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #333;
+        }
+        
+        .card ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2d8659;
+            font-weight: bold;
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+        }
+        
+        .stat-box .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d8659;
+            margin-bottom: 10px;
+        }
+        
+        .stat-box .label {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .team-member {
+            background: white;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .team-member .avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #2d8659 0%, #1a5c3d 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .team-member h3 {
+            color: #0f4c2e;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .team-member .role {
+            color: #2d8659;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+        
+        .team-member .skills {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .team-member .links {
+            margin-top: 15px;
+        }
+        
+        .team-member .links a {
+            display: inline-block;
+            margin: 0 5px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .team-member .links a:hover {
+            text-decoration: underline;
+        }
+        
+        .strength-section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 35px;
+            background: linear-gradient(135deg, #e7f3ff 0%, #f0f7ff 100%);
+            border-radius: 8px;
+            border-left: 6px solid #0066cc;
+        }
+        
+        .strength-section p {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .roadmap-stage {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .roadmap-stage .current {
+            display: inline-block;
+            background: #2d8659;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(45, 134, 89, 0.3);
+        }
+        
+        .roadmap-timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .roadmap-phase {
+            background: white;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .roadmap-phase .phase-number {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            background: #2d8659;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .roadmap-phase h3 {
+            color: #0f4c2e;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            margin-top: 10px;
+        }
+        
+        .roadmap-phase .duration {
+            color: #2d8659;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .roadmap-phase ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .roadmap-phase ul li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #333;
+            font-size: 0.95rem;
+        }
+        
+        .roadmap-phase ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #2d8659;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tech-category {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        
+        .tech-category h3 {
+            color: #0f4c2e;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #2d8659;
+            padding-bottom: 10px;
+        }
+        
+        .tech-category ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .tech-category ul li {
+            padding: 8px 0;
+            color: #333;
+            font-size: 0.95rem;
+        }
+        
+        .tech-category ul li strong {
+            color: #0f4c2e;
+        }
+        
+        .ai-highlight {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .ai-highlight h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .ai-highlight p {
+            color: #333;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        .ai-highlight ul {
+            margin-top: 15px;
+            padding-left: 20px;
+        }
+        
+        .ai-highlight ul li {
+            color: #333;
+            padding: 5px 0;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #0f4c2e 0%, #2d8659 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-section .btn {
+            display: inline-block;
+            background: white;
+            color: #0f4c2e;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-section .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        footer p {
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .two-column,
+            .impact-stats,
+            .team-grid,
+            .roadmap-timeline,
+            .tech-stack {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <h1>🌾 FieldScore AI</h1>
+            <p class="tagline">Micro-Risk Scoring for Smallholder Farmland</p>
+            <p class="subtitle">AI-powered field reliability assessment for Agro-lenders using satellite data and weather analytics</p>
+        </div>
+    </div>
+
+    <!-- SECTION 1: PROBLEM & SOLUTION -->
+    <section id="problem-solution">
+        <div class="container">
+            <div class="section-header">
+                <h2>Problem & Solution</h2>
+            </div>
+            
+            <div class="two-column">
+                <div class="card">
+                    <h3>The Problem</h3>
+                    <p><strong>Domain:</strong> Financial Inclusion & Agriculture</p>
+                    <p>Smallholder farmers in emerging markets face a critical credit access barrier. Over 60% of loan applications are rejected because:</p>
+                    <ul>
+                        <li>No credit history or collateral available</li>
+                        <li>Banks cannot assess farmland productivity or risk</li>
+                        <li>Manual field assessments cost $50-200 per farm</li>
+                        <li>High default rates (30-40%) discourage lending</li>
+                        <li>2 billion farmers remain excluded from formal credit</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-weight: 600; color: #0f4c2e;">Result: Creditworthy farmers denied loans. Lenders face high losses when approving blindly.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Our Solution</h3>
+                    <p><strong>FieldScore AI</strong> generates objective 0-100 risk scores for individual farm plots in under 10 seconds using:</p>
+                    <ul>
+                        <li>Satellite NDVI data (vegetation health trends)</li>
+                        <li>Weather risk analysis (drought/flood indicators)</li>
+                        <li>Machine learning scoring models</li>
+                        <li>Simple farmer inputs (location, crop, area)</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Who Benefits:</strong> Microfinance institutions, rural banks, agricultural cooperatives, government lending programs</p>
+                    <p><strong>Impact:</strong> Faster decisions, lower default risk, expanded credit access for smallholders</p>
+                </div>
+            </div>
+            
+            <div class="impact-stats">
+                <div class="stat-box">
+                    <div class="number">90%</div>
+                    <div class="label">Faster Loan Processing<br>(weeks → minutes)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">20-30%</div>
+                    <div class="label">Reduction in<br>Default Risk</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">$0.10</div>
+                    <div class="label">Cost per Assessment<br>(vs $50-200 manual)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: TEAM DETAILS -->
+    <section id="team" style="background: #f8f9fa;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Team</h2>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="avatar">DA</div>
+                    <h3>Dovud Asadov</h3>
+                    <p class="role">ML Engineer</p>
+                    <div class="links">
+                        <a href="https://www.linkedin.com/in/dovud-asadov-913002245/" onclick="return true;">LinkedIn</a> • 
+                        <a href="https://github.com/DovudAsadov?tab=repositories" onclick="return true;">GitHub</a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="avatar">BN</div>
+                    <h3>Burxon Normurodov</h3>
+                    <p class="role">Backend Developer</p>
+                   
+                    <div class="links">
+                        <a href="https://www.linkedin.com/in/burkhon-nurmurodov-6356902a3/" onclick="return true;">LinkedIn</a> • 
+                     
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="avatar">RU</div>
+                    <h3>Rustambek Urokov</h3>
+                    <p class="role">AI Engineer</p>
+                  
+                    <div class="links">
+                        <a href="https://www.linkedin.com/in/rustambek-u-0b0023275/" onclick="return true;">LinkedIn</a> • 
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </section>
+
+
+    <!-- SECTION 4: ROADMAP & CURRENT STAGE -->
+    <section id="roadmap" style="background: #f8f9fa;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Roadmap & Current Stage</h2>
+            </div>
+            
+            <div class="roadmap-stage">
+                <div class="current">Current Stage: PROTOTYPE</div>
+                <p style="margin-top: 20px; color: #666; font-size: 1.05rem;">
+                    Working proof-of-concept with satellite data retrieval, NDVI calculation, and basic scoring logic validated
+                </p>
+            </div>
+            
+            <div class="roadmap-timeline">
+                <div class="roadmap-phase">
+                    <div class="phase-number">1</div>
+                    <h3>Feature Engineering</h3>
+                    <p class="duration">Days 1-6</p>
+                    <ul>
+                        <li>NDVI trend analysis pipeline</li>
+                        <li>Anomaly detection (z-scores)</li>
+                        <li>Rainfall deficit calculation</li>
+                        <li>Train gradient boosting model</li>
+                        <li>Validate with synthetic data</li>
+                        <li>Baseline accuracy: AUC > 0.75</li>
+                    </ul>
+                </div>
+                
+                <div class="roadmap-phase">
+                    <div class="phase-number">2</div>
+                    <h3>API & Deployment</h3>
+                    <p class="duration">Days 7-12</p>
+                    <ul>
+                        <li>Build FastAPI endpoints</li>
+                        <li>GeoJSON validation logic</li>
+                        <li>Containerize with Docker</li>
+                        <li>Deploy backend to Railway</li>
+                        <li>Build Leaflet map frontend</li>
+                        <li>Deploy to Netlify</li>
+                    </ul>
+                </div>
+                
+                <div class="roadmap-phase">
+                    <div class="phase-number">3</div>
+                    <h3>Production Ready</h3>
+                    <p class="duration">Days 13-21</p>
+                    <ul>
+                        <li>User testing with 3-5 MFIs</li>
+                        <li>Refine score thresholds</li>
+                        <li>Add Redis caching layer</li>
+                        <li>Monitoring dashboards</li>
+                        <li>API rate limiting</li>
+                        <li>Documentation & handoff</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: HOW WE PLAN TO SOLVE IT -->
+    <section id="solution-approach">
+        <div class="container">
+            <div class="section-header">
+                <h2>How We Plan to Solve It</h2>
+                <span class="rubric">Technical Depth & Innovation 20% | Presentation 10%</span>
+                <p>Data-driven approach combining satellite imagery, weather analytics, and machine learning</p>
+            </div>
+            
+            <div class="tech-stack">
+                <div class="tech-category">
+                    <h3>Data Sources</h3>
+                    <ul>
+                        <li><strong>Sentinel-2:</strong> 10m resolution NDVI time series (12 months) via Google Earth Engine API</li>
+                        <li><strong>ERA5 / OpenWeatherMap:</strong> 30-day historical + 7-day forecast precipitation & temperature</li>
+                        <li><strong>SoilGrids (optional):</strong> Soil texture and organic carbon data for advanced scoring</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Feature Engineering</h3>
+                    <ul>
+                        <li><strong>NDVI mean:</strong> 12-month baseline productivity</li>
+                        <li><strong>NDVI slope:</strong> Trend (improving vs declining)</li>
+                        <li><strong>14-day delta:</strong> Short-term health indicator</li>
+                        <li><strong>Anomaly z-score:</strong> Deviation from historical mean</li>
+                        <li><strong>Rainfall deficit:</strong> 30-day drought stress proxy</li>
+                        <li><strong>Coefficient of variation:</strong> Stability measure</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Technology Stack</h3>
+                    <ul>
+                        <li><strong>Backend:</strong> FastAPI (Python 3.10+), GeoPandas, Google Earth Engine API</li>
+                        <li><strong>Frontend:</strong> HTML/CSS/JavaScript, Leaflet.js for map interface</li>
+                        <li><strong>ML Training:</strong> scikit-learn, XGBoost/LightGBM, pandas, numpy</li>
+                        <li><strong>Deployment:</strong> Railway (backend), Netlify (frontend)</li>
+                        <li><strong>Monitoring:</strong> Sentry (errors), structured logging</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-category">
+                    <h3>Development Process</h3>
+                    <ul>
+                        <li><strong>Version Control:</strong> Git + GitHub</li>
+                        <li><strong>CI/CD:</strong> Automated deployment on push to main</li>
+                        <li><strong>Containerization:</strong> Docker multi-stage builds</li>
+                        <li><strong>API Design:</strong> Single POST /evaluate endpoint</li>
+                        <li><strong>Testing:</strong> 5-fold cross-validation, unit tests</li>
+                        <li><strong>Security:</strong> Rate limiting, CORS, API authentication</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="ai-highlight">
+                <h3>AI & Machine Learning Implementation</h3>
+                <p>
+                    <strong>Primary Model:</strong> Gradient Boosting (XGBoost or LightGBM) trained on engineered features to output risk scores 0-100. The model learns patterns from historical NDVI trends, weather anomalies, and vegetation stress indicators.
+                </p>
+                <ul>
+                    <li><strong>Training Data:</strong> Synthetic dataset (1,000+ records) combining realistic NDVI patterns with simulated loan outcomes, augmented with public agricultural datasets</li>
+                    <li><strong>Model Output:</strong> Continuous score representing field reliability, mapped to risk categories (High: 0-30, Medium: 31-60, Low: 61-100)</li>
+                    <li><strong>Validation:</strong> 5-fold cross-validation with target metrics: AUC > 0.75, precision > 0.70</li>
+                    <li><strong>Fallback Logic:</strong> Rule-based scoring when satellite data unavailable or confidence low (weighted NDVI thresholds + rainfall deficit)</li>
+                    <li><strong>Future Enhancement:</strong> Small CNN or LSTM for time-series forecasting of future NDVI trajectory</li>
+                </ul>
+                <p style="margin-top: 15px;">
+                    <strong>Score Interpretation:</strong> 0-30 (High Risk) → Declining NDVI or severe drought → Reject or high interest. 31-60 (Medium) → Stable but variable → Standard terms. 61-100 (Low Risk) → Improving vegetation, adequate rainfall → Favorable terms.
+                </p>
+            </div>
+            
+            <div class="card" style="margin-top: 40px;">
+                <h3>Key Implementation Steps</h3>
+                <ul style="padding-left: 20px; list-style: decimal;">
+                    <li style="padding-left: 5px;"><strong>Data Pipeline:</strong> Fetch Sentinel-2 NDVI and weather data for input polygon coordinates</li>
+                    <li style="padding-left: 5px;"><strong>Feature Computation:</strong> Calculate all engineered features (trends, anomalies, deficits)</li>
+                    <li style="padding-left: 5px;"><strong>Model Inference:</strong> Run gradient boosting model to generate 0-100 score with confidence level</li>
+                    <li style="padding-left: 5px;"><strong>Risk Categorization:</strong> Map score to loan recommendation (reject, standard, favorable)</li>
+                    <li style="padding-left: 5px;"><strong>API Response:</strong> Return JSON with score, risk category, NDVI chart data, and interpretation</li>
+                    <li style="padding-left: 5px;"><strong>Caching:</strong> Store results for repeated queries (Redis) to reduce API costs</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <div class="cta-section">
+        <div class="container">
+            <h2>Ready to Transform Agricultural Lending</h2>
+            <p>Bringing data-driven risk assessment to 2 billion underserved farmers worldwide</p>
+            <a href="#problem-solution" class="btn">Learn More About FieldScore AI</a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p><strong>FieldScore AI</strong> | AI500 Hackathon</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">© 2025 FieldScore AI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
