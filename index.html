@@ -703,12 +703,12 @@
             <div class="card" style="margin-top: 40px;">
                 <h3>Key Implementation Steps</h3>
                 <ul style="padding-left: 20px; list-style: decimal;">
-                    <li style="padding-left: 5px;"><p>Data Pipeline:</p> Fetch Sentinel-2 NDVI and weather data for input polygon coordinates</li>
-                    <li style="padding-left: 5px;"><p>Feature Computation:</p> Calculate all engineered features (trends, anomalies, deficits)</li>
-                    <li style="padding-left: 5px;"><p>Model Inference:</p> Run gradient boosting model to generate 0-100 score with confidence level</li>
-                    <li style="padding-left: 5px;"><p>Risk Categorization:</p> Map score to loan recommendation (reject, standard, favorable)</li>
-                    <li style="padding-left: 5px;"><p>API Response:</p> Return JSON with score, risk category, NDVI chart data, and interpretation</li>
-                    <li style="padding-left: 5px;"><p>Caching:</p> Store results for repeated queries (Redis) to reduce API costs</li>
+                    <li style="padding-left: 5px;"><p>  Data Pipeline:</p> Fetch Sentinel-2 NDVI and weather data for input polygon coordinates</li>
+                    <li style="padding-left: 5px;"><p>  Feature Computation:</p> Calculate all engineered features (trends, anomalies, deficits)</li>
+                    <li style="padding-left: 5px;"><p>  Model Inference:</p> Run gradient boosting model to generate 0-100 score with confidence level</li>
+                    <li style="padding-left: 5px;"><p>  Risk Categorization:</p> Map score to loan recommendation (reject, standard, favorable)</li>
+                    <li style="padding-left: 5px;"><p>  API Response:</p> Return JSON with score, risk category, NDVI chart data, and interpretation</li>
+                    <li style="padding-left: 5px;"><p>  Caching:</p> Store results for repeated queries (Redis) to reduce API costs</li>
                 </ul>
             </div>
         </div>
@@ -732,4 +732,5 @@
     </footer>
 </body>
 </html>
+
 
