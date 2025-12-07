@@ -491,11 +491,29 @@
                 <li><a href="#solution-approach" class="nav-link" data-i18n="nav_technical">Technical Approach</a></li>
                 <li><a href="#" class="nav-link nav-cta" id="tryDemoBtn" data-i18n="nav_demo">Try Our Demo</a></li>
                 <li class="language-switcher">
-                    <select id="languageSelector" aria-label="Select language">
-                        <option value="en">EN - English</option>
-                        <option value="uz">UZ - O'zbek</option>
-                        <option value="ru">RU - Русский</option>
-                    </select>
+                    <div class="custom-select-wrapper">
+                        <button class="language-btn" id="languageBtn" aria-label="Select language">
+                            <span class="globe-icon">🌐</span>
+                            <span class="current-lang">EN - English</span>
+                            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="language-dropdown" id="languageDropdown">
+                            <div class="language-option" data-lang="en">
+                                <span class="lang-code">EN</span>
+                                <span class="lang-name">English</span>
+                            </div>
+                            <div class="language-option" data-lang="uz">
+                                <span class="lang-code">UZ</span>
+                                <span class="lang-name">O'zbek</span>
+                            </div>
+                            <div class="language-option" data-lang="ru">
+                                <span class="lang-code">RU</span>
+                                <span class="lang-name">Русский</span>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>

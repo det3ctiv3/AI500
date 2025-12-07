@@ -440,28 +440,75 @@ function initMobileMenu() {
  * Language switcher functionality
  */
 function initLanguageSwitcher() {
-    const languageSelector = document.getElementById('languageSelector');
+    const languageBtn = document.getElementById('languageBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const languageOptions = document.querySelectorAll('.language-option');
+    const currentLangSpan = document.querySelector('.current-lang');
     
-    if (!languageSelector) {
+    if (!languageBtn || !languageDropdown) {
         console.warn('Language selector not found');
         return;
     }
     
-    // Set saved language
-    languageSelector.value = currentLanguage;
+    // Language names map
+    const langNames = {
+        'en': 'EN - English',
+        'uz': 'UZ - O\'zbek',
+        'ru': 'RU - Русский'
+    };
     
-    // Listen for language changes
-    languageSelector.addEventListener('change', function() {
-        const newLanguage = this.value;
-        currentLanguage = newLanguage;
-        localStorage.setItem('fieldscoreLanguage', newLanguage);
-        applyLanguage(newLanguage);
-        
-        // Update chatbot language if open
-        const chatLanguageSelector = document.getElementById('chatLanguage');
-        if (chatLanguageSelector) {
-            chatLanguageSelector.value = newLanguage;
+    // Set initial language display
+    currentLangSpan.textContent = langNames[currentLanguage] || langNames['en'];
+    
+    // Mark current language as selected
+    languageOptions.forEach(option => {
+        if (option.dataset.lang === currentLanguage) {
+            option.classList.add('selected');
         }
+    });
+    
+    // Toggle dropdown
+    languageBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        languageBtn.classList.toggle('active');
+        languageDropdown.classList.toggle('active');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!languageBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+            languageBtn.classList.remove('active');
+            languageDropdown.classList.remove('active');
+        }
+    });
+    
+    // Handle language selection
+    languageOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const newLanguage = this.dataset.lang;
+            
+            // Update selected state
+            languageOptions.forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+            
+            // Update button text
+            currentLangSpan.textContent = langNames[newLanguage];
+            
+            // Close dropdown
+            languageBtn.classList.remove('active');
+            languageDropdown.classList.remove('active');
+            
+            // Apply language
+            currentLanguage = newLanguage;
+            localStorage.setItem('fieldscoreLanguage', newLanguage);
+            applyLanguage(newLanguage);
+            
+            // Update chatbot language if open
+            const chatLanguageSelector = document.getElementById('chatLanguage');
+            if (chatLanguageSelector) {
+                chatLanguageSelector.value = newLanguage;
+            }
+        });
     });
 }
 
