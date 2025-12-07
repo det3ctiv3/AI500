@@ -1,177 +1,109 @@
-# FieldScore AI - Stage 1 Submission Website
+# FieldScore AI
 
-## 🎯 Quick Deployment Guide
+## Overview
 
-This is the **official AI500 Stage 1 submission website** for FieldScore AI. It covers all required sections with proper weighting for evaluation criteria.
+FieldScore AI is an agricultural risk assessment platform that provides credit scoring for smallholder farmers using satellite imagery, weather data, and machine learning.
 
----
+## Features
 
-## 📋 Content Coverage
+- Interactive farm risk assessment demo
+- Real-time NDVI satellite data analysis
+- Weather and soil condition monitoring
+- AI-powered chatbot assistance
+- RESTful API for model inference
 
-✅ **1. Problem & Solution** (Relevance 20% + Clarity 20%)
-- Real problem: Credit access barrier for 2B smallholder farmers
-- Domain: Financial Inclusion & Agriculture
-- Solution: AI-powered risk scoring using satellite + weather data
-- Impact metrics: 90% faster processing, 20-30% lower defaults, $0.10 cost
+## Technology Stack
 
-✅ **2. Team Details** (15%)
-- Dovud Asadov - ML Engineer
-- Burxon Normurodov - MLOps Engineer  
-- Rustambek Urokov - Backend Developer
-- Skills, roles, and tech stack listed for each member
-- Note: Add LinkedIn/GitHub links if available
+**Frontend**
+- HTML5, CSS3, JavaScript
+- Responsive design with CSS Grid and Flexbox
+- OpenAI API integration for chatbot
 
-✅ **3. Why We Can Solve This** (15%)
-- Specialized expertise in ML, deployment, and backend
-- Clear division of labor for parallel development
-- Relevant experience with geospatial AI systems
+**Backend**
+- FastAPI with Uvicorn
+- Pydantic for data validation
+- CORS middleware enabled
 
-✅ **4. Roadmap & Current Stage** (15%)
-- Current: PROTOTYPE (working proof-of-concept)
-- 21-day roadmap in 3 phases
-- Specific deliverables and timelines
+**Machine Learning**
+- XGBoost/LightGBM gradient boosting
+- scikit-learn, pandas, numpy
+- Training data: 50 sample farm records
 
-✅ **5. How We Plan to Solve It** (Technical 20% + Presentation 10%)
-- Data sources: Sentinel-2, ERA5, SoilGrids
-- Feature engineering: 6 key features listed
-- AI/ML: Gradient boosting (XGBoost/LightGBM)
-- Tech stack: FastAPI, GeoPandas, Leaflet
-- Implementation steps detailed
+**Data Sources**
+- Sentinel-2 satellite NDVI
+- ERA5 weather data
+- SoilGrids soil properties
 
----
+## Project Structure
 
-## 🚀 Deployment Options
+```
+AI500/
+├── index.html
+├── assets/
+│   ├── css/styles.css
+│   └── js/main.js
+├── data/
+│   ├── training_data.csv
+│   ├── training_data_schema.json
+│   └── train_model.py
+├── docs/
+│   ├── DATA_DOCUMENTATION.md
+│   ├── TRAINING_DATA_RECOMMENDATIONS.md
+│   └── PROJECT_STRUCTURE.md
+├── api.py
+├── requirements.txt
+├── API_README.md
+├── QUICK_START.md
+└── CHATBOT_SETUP.md
+```
 
-### Option 1: Netlify (Recommended - Easiest)
+## Installation
 
-1. **Via Netlify Drop (No Git Required)**
-   - Go to https://app.netlify.com/drop
-   - Drag the `stage1-submission` folder into the browser
-   - Get instant public URL: `https://[random-name].netlify.app`
-   - Copy URL for Telegram bot submission
-
-2. **Via Git (Better for Updates)**
-   ```powershell
-   cd c:\Users\whitehat\Desktop\AI500\stage1-submission
-   git init
-   git add index.html README.md
-   git commit -m "Stage 1 submission website"
-   # Create repo on GitHub, then:
-   git remote add origin https://github.com/[your-username]/fieldscore-stage1.git
-   git push -u origin main
-   ```
-   - Connect GitHub repo to Netlify
-   - Auto-deploy on push
-
-### Option 2: Vercel
-
+1. Install dependencies:
 ```powershell
-# Install Vercel CLI
-npm install -g vercel
-
-# Deploy
-cd c:\Users\whitehat\Desktop\AI500\stage1-submission
-vercel
+pip install fastapi uvicorn pydantic numpy joblib openai scikit-learn xgboost
 ```
 
-### Option 3: GitHub Pages
-
-1. Create public repo on GitHub
-2. Upload `index.html` to root or `/docs` folder
-3. Enable GitHub Pages in repo Settings
-4. URL: `https://[username].github.io/[repo-name]`
-
----
-
-## ✅ Pre-Submission Checklist
-
-Before submitting to AI500 Telegram Bot:
-
-- [ ] Website opens in browser without errors
-- [ ] All 5 sections visible and complete
-- [ ] Team member names match AI500 registrations:
-  - Dovud Asadov ✓
-  - Burxon Normurodov ✓
-  - Rustambek Urokov ✓
-- [ ] No login or access restrictions
-- [ ] Mobile responsive (test on phone)
-- [ ] Public URL obtained from hosting provider
-- [ ] URL tested in incognito/private browser
-
----
-
-## 📝 Telegram Bot Submission
-
-1. Open AI500 Telegram Bot
-2. Select **Task 1** (Stage 1 Submission)
-3. Send the public URL
-4. Deadline: **November 30, 23:59 (GMT+5)**
-
-**Example message:**
-```
-https://fieldscore-ai-stage1.netlify.app
-
-FieldScore AI - Micro-risk scoring for smallholder farmland
-Team: Dovud Asadov, Burxon Normurodov, Rustambek Urokov
+2. Configure OpenAI API key in `assets/js/main.js`:
+```javascript
+const OPENAI_API_KEY = 'your-api-key-here';
 ```
 
----
-
-## 🎨 Design Features
-
-- **Responsive:** Works on mobile, tablet, desktop
-- **Accessible:** High contrast, semantic HTML, no login required
-- **Clear Structure:** Each section maps to rubric criteria
-- **Professional:** Clean gradient hero, card layouts, hover effects
-- **Fast Loading:** Single HTML file, no external dependencies except fonts
-
----
-
-## 📊 Evaluation Alignment
-
-| Criteria | Weight | Addressed In |
-|----------|--------|--------------|
-| Relevance of problem | 20% | Section 1: Problem (credit access barrier, 2B farmers) |
-| Clarity of solution | 20% | Section 1: Solution (AI scoring, satellite data) |
-| Team presentation | 15% | Section 2: Full team details with skills |
-| Roadmap & feasibility | 15% | Section 4: 21-day roadmap, current stage |
-| Technical depth & AI | 20% | Section 5: ML model, data sources, features |
-| Presentation quality | 10% | Overall design, structure, accessibility |
-
----
-
-## 🔧 Files Included
-
-```
-stage1-submission/
-├── index.html          (Single-page submission website)
-└── README.md           (This deployment guide)
+3. Start the API server:
+```powershell
+python api.py
 ```
 
-**Other project files (not for this submission):**
-- `backend/` - Localhost demo API (for Stage 2)
-- `frontend/` - Interactive demo UI (for Stage 2)
-- `stage1.md` - Detailed documentation (reference only)
+4. Open `index.html` in your browser
 
----
+## API Endpoints
 
-## 🎯 Next Steps
+**POST /predict**
+- Input: Farm data (12 features including NDVI, weather, soil, loan details)
+- Output: Risk score (0-100) and category (High/Medium/Low)
 
-1. **Deploy now:** Use Netlify Drop for instant deployment
-2. **Get URL:** Copy the public URL provided
-3. **Test:** Open in incognito browser to verify accessibility
-4. **Submit:** Send URL to AI500 Telegram Bot before deadline
-5. **Wait for results:** Top 50-100 teams advance to Stage 2
+See `API_README.md` for complete documentation.
 
----
+## Configuration
 
-## 📞 Support
+- API server runs on `http://localhost:8000`
+- OpenAI chatbot uses GPT-3.5-turbo model
+- Fallback responses available when API unavailable
 
-If team member info needs updating (LinkedIn/GitHub links):
-- Edit `index.html` lines with `onclick="return false;"` placeholders
-- Replace `#` in `<a href="#">` with actual URLs
-- Redeploy to hosting
+## Documentation
 
----
+- `API_README.md` - Complete API documentation
+- `QUICK_START.md` - Step-by-step setup guide
+- `CHATBOT_SETUP.md` - OpenAI integration guide
+- `DATA_DOCUMENTATION.md` - Data specifications and features
+- `TRAINING_DATA_RECOMMENDATIONS.md` - Model training guidelines
 
-**Website is ready for submission. Deploy to get your public URL now!**
+## Team
+
+- Dovud Asadov - ML Engineer
+- Burxon Normurodov - MLOps Engineer
+- Rustambek Urokov - Backend Developer
+
+## License
+
+Copyright 2025 FieldScore AI. All rights reserved.

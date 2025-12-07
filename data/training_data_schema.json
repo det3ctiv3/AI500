@@ -1,0 +1,228 @@
+{
+  "metadata": {
+    "dataset_name": "FieldScore AI Training Dataset",
+    "version": "1.0",
+    "created_date": "2025-12-07",
+    "description": "Synthetic training data for smallholder farm risk scoring model",
+    "total_records": 50,
+    "features": 12,
+    "target_variable": "risk_score",
+    "data_sources": [
+      "Sentinel-2 NDVI (Normalized Difference Vegetation Index)",
+      "ERA5 Weather Data",
+      "SoilGrids Soil Properties",
+      "Loan Performance Records"
+    ]
+  },
+  "feature_descriptions": {
+    "farm_id": "Unique identifier for each farm",
+    "latitude": "Farm location latitude (decimal degrees)",
+    "longitude": "Farm location longitude (decimal degrees)",
+    "crop_type": "Primary crop cultivated (maize, rice, coffee, wheat, etc.)",
+    "farm_area_hectares": "Total cultivated area in hectares",
+    "ndvi_mean_12mo": "Average NDVI over past 12 months (0-1 scale, higher = healthier vegetation)",
+    "ndvi_slope": "Trend in NDVI over time (positive = improving, negative = declining)",
+    "ndvi_14day_delta": "Change in NDVI over past 14 days (short-term health indicator)",
+    "ndvi_anomaly_zscore": "Deviation from historical NDVI mean in standard deviations",
+    "rainfall_deficit_30day": "Rainfall shortfall in mm over past 30 days (drought indicator)",
+    "coefficient_of_variation": "NDVI variability measure (lower = more stable)",
+    "soil_organic_carbon": "Soil organic carbon percentage (fertility indicator)",
+    "loan_amount_usd": "Loan amount requested in USD",
+    "loan_outcome": "Historical loan performance (repaid/defaulted)",
+    "risk_score": "Model output: 0-100 risk score (higher = lower risk)",
+    "risk_category": "Risk classification (high: 0-30, medium: 31-60, low: 61-100)"
+  },
+  "risk_scoring_logic": {
+    "high_risk": {
+      "score_range": "0-30",
+      "characteristics": [
+        "NDVI mean < 0.60 (poor vegetation health)",
+        "Negative NDVI slope < -0.015 (declining trend)",
+        "NDVI anomaly z-score < -2.0 (significant decline from normal)",
+        "Rainfall deficit > 60mm (severe drought)",
+        "Coefficient of variation > 0.40 (unstable production)"
+      ],
+      "loan_recommendation": "Reject or require additional collateral + high interest rate"
+    },
+    "medium_risk": {
+      "score_range": "31-60",
+      "characteristics": [
+        "NDVI mean 0.60-0.70 (moderate vegetation health)",
+        "NDVI slope -0.015 to 0.010 (stable or slight decline)",
+        "NDVI anomaly z-score -2.0 to 0.0 (below normal)",
+        "Rainfall deficit 30-60mm (moderate drought)",
+        "Coefficient of variation 0.25-0.40 (moderate variability)"
+      ],
+      "loan_recommendation": "Approve with standard terms or slightly elevated interest"
+    },
+    "low_risk": {
+      "score_range": "61-100",
+      "characteristics": [
+        "NDVI mean > 0.70 (excellent vegetation health)",
+        "Positive NDVI slope > 0.010 (improving trend)",
+        "NDVI anomaly z-score > 0.0 (above normal)",
+        "Rainfall deficit < 30mm (adequate water)",
+        "Coefficient of variation < 0.25 (stable production)"
+      ],
+      "loan_recommendation": "Approve with favorable terms and lower interest rate"
+    }
+  },
+  "training_samples": [
+    {
+      "farm_id": "F001",
+      "location": {
+        "latitude": -1.2921,
+        "longitude": 36.8219,
+        "region": "Central Kenya"
+      },
+      "farm_characteristics": {
+        "crop_type": "maize",
+        "farm_area_hectares": 2.5
+      },
+      "vegetation_indicators": {
+        "ndvi_mean_12mo": 0.72,
+        "ndvi_slope": 0.015,
+        "ndvi_14day_delta": -0.02,
+        "ndvi_anomaly_zscore": -0.35,
+        "coefficient_of_variation": 0.18
+      },
+      "environmental_factors": {
+        "rainfall_deficit_30day": 15.2,
+        "soil_organic_carbon": 1.8
+      },
+      "loan_data": {
+        "loan_amount_usd": 1500,
+        "loan_outcome": "repaid"
+      },
+      "model_output": {
+        "risk_score": 75,
+        "risk_category": "low",
+        "confidence": 0.89
+      }
+    },
+    {
+      "farm_id": "F003",
+      "location": {
+        "latitude": -3.3731,
+        "longitude": 36.2821,
+        "region": "Northern Tanzania"
+      },
+      "farm_characteristics": {
+        "crop_type": "wheat",
+        "farm_area_hectares": 5.0
+      },
+      "vegetation_indicators": {
+        "ndvi_mean_12mo": 0.55,
+        "ndvi_slope": -0.025,
+        "ndvi_14day_delta": -0.08,
+        "ndvi_anomaly_zscore": -2.5,
+        "coefficient_of_variation": 0.45
+      },
+      "environmental_factors": {
+        "rainfall_deficit_30day": 78.5,
+        "soil_organic_carbon": 1.2
+      },
+      "loan_data": {
+        "loan_amount_usd": 3000,
+        "loan_outcome": "defaulted"
+      },
+      "model_output": {
+        "risk_score": 25,
+        "risk_category": "high",
+        "confidence": 0.92
+      }
+    },
+    {
+      "farm_id": "F004",
+      "location": {
+        "latitude": 1.3733,
+        "longitude": 32.2903,
+        "region": "Eastern Uganda"
+      },
+      "farm_characteristics": {
+        "crop_type": "rice",
+        "farm_area_hectares": 3.8
+      },
+      "vegetation_indicators": {
+        "ndvi_mean_12mo": 0.78,
+        "ndvi_slope": 0.022,
+        "ndvi_14day_delta": 0.05,
+        "ndvi_anomaly_zscore": 0.8,
+        "coefficient_of_variation": 0.12
+      },
+      "environmental_factors": {
+        "rainfall_deficit_30day": 8.3,
+        "soil_organic_carbon": 2.5
+      },
+      "loan_data": {
+        "loan_amount_usd": 2000,
+        "loan_outcome": "repaid"
+      },
+      "model_output": {
+        "risk_score": 85,
+        "risk_category": "low",
+        "confidence": 0.95
+      }
+    }
+  ],
+  "model_configuration": {
+    "algorithm": "Gradient Boosting (XGBoost/LightGBM)",
+    "hyperparameters": {
+      "n_estimators": 100,
+      "max_depth": 6,
+      "learning_rate": 0.1,
+      "min_child_weight": 1,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8
+    },
+    "validation_strategy": {
+      "method": "5-fold cross-validation",
+      "train_test_split": 0.8,
+      "stratification": "risk_category"
+    },
+    "target_metrics": {
+      "primary": "AUC-ROC > 0.75",
+      "secondary": [
+        "Precision > 0.70",
+        "Recall > 0.65",
+        "F1-Score > 0.67"
+      ]
+    }
+  },
+  "data_collection_workflow": {
+    "step_1": {
+      "name": "Location Input",
+      "description": "Farmer provides farm coordinates (GPS) or draws polygon on map",
+      "tools": "Leaflet.js map interface, GeoJSON validation"
+    },
+    "step_2": {
+      "name": "Satellite Data Retrieval",
+      "description": "Fetch 12 months of Sentinel-2 NDVI data for farm polygon",
+      "api": "Google Earth Engine API",
+      "resolution": "10m",
+      "update_frequency": "5 days"
+    },
+    "step_3": {
+      "name": "Weather Data Retrieval",
+      "description": "Fetch 30-day historical precipitation and temperature",
+      "api": "ERA5 Climate Reanalysis / OpenWeatherMap",
+      "parameters": ["precipitation", "temperature_2m", "soil_moisture"]
+    },
+    "step_4": {
+      "name": "Feature Engineering",
+      "description": "Calculate all derived features from raw satellite and weather data",
+      "outputs": [
+        "NDVI statistics (mean, slope, delta)",
+        "Anomaly detection (z-scores)",
+        "Rainfall deficit calculation",
+        "Coefficient of variation"
+      ]
+    },
+    "step_5": {
+      "name": "Model Inference",
+      "description": "Run trained gradient boosting model to generate risk score",
+      "latency": "< 2 seconds",
+      "output": "0-100 risk score with confidence level"
+    }
+  }
+}

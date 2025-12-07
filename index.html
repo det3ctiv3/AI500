@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="FieldScore AI - Smallholder farm risk scoring for Agri-lenders using satellite data and AI. AI500 Hackathon Stage 1 Submission.">
     <title>FieldScore AI</title>
+    
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
     <style>
+        /* Inline styles removed - now in assets/css/styles.css */
         * {
             margin: 0;
             padding: 0;
@@ -464,6 +469,28 @@
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="logo">🌾</span>
+                <span class="brand-name">FieldScore AI</span>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#problem-solution" class="nav-link">Problem & Solution</a></li>
+                <li><a href="#team" class="nav-link">Team</a></li>
+                <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
+                <li><a href="#solution-approach" class="nav-link">Technical Approach</a></li>
+                <li><a href="#" class="nav-link nav-cta" id="tryDemoBtn">Try Our Demo</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="hero">
         <div class="container">
             <h1>🌾 FieldScore AI</h1>
@@ -723,13 +750,188 @@
         </div>
     </div>
 
+    <!-- DEMO MODAL -->
+    <div class="modal" id="demoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🌾 Try FieldScore AI Demo</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">Enter farm details below to get an AI-powered risk assessment in seconds.</p>
+                
+                <form id="demoForm" class="demo-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="latitude">Latitude *</label>
+                            <input type="number" id="latitude" name="latitude" step="0.0001" placeholder="-1.2921" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="longitude">Longitude *</label>
+                            <input type="number" id="longitude" name="longitude" step="0.0001" placeholder="36.8219" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cropType">Crop Type *</label>
+                            <select id="cropType" name="cropType" required>
+                                <option value="">Select crop...</option>
+                                <option value="maize">Maize</option>
+                                <option value="rice">Rice</option>
+                                <option value="coffee">Coffee</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="beans">Beans</option>
+                                <option value="cassava">Cassava</option>
+                                <option value="tea">Tea</option>
+                                <option value="banana">Banana</option>
+                                <option value="sorghum">Sorghum</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="potato">Potato</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="farmArea">Farm Area (hectares) *</label>
+                            <input type="number" id="farmArea" name="farmArea" step="0.1" min="0.1" placeholder="2.5" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ndviMean">NDVI Mean (12 months) *</label>
+                            <input type="number" id="ndviMean" name="ndviMean" step="0.01" min="0" max="1" placeholder="0.72" required>
+                            <small>Vegetation health (0.0 - 1.0)</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="ndviSlope">NDVI Slope *</label>
+                            <input type="number" id="ndviSlope" name="ndviSlope" step="0.001" placeholder="0.015" required>
+                            <small>Trend (positive = improving)</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ndviDelta">NDVI 14-day Delta *</label>
+                            <input type="number" id="ndviDelta" name="ndviDelta" step="0.01" placeholder="-0.02" required>
+                            <small>Recent change</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="ndviAnomaly">NDVI Anomaly Z-Score *</label>
+                            <input type="number" id="ndviAnomaly" name="ndviAnomaly" step="0.1" placeholder="-0.35" required>
+                            <small>Deviation from normal</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rainfallDeficit">Rainfall Deficit (30 days, mm) *</label>
+                            <input type="number" id="rainfallDeficit" name="rainfallDeficit" step="0.1" placeholder="15.2" required>
+                            <small>Drought indicator</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="coefficientVariation">Coefficient of Variation *</label>
+                            <input type="number" id="coefficientVariation" name="coefficientVariation" step="0.01" min="0" max="1" placeholder="0.18" required>
+                            <small>Stability (0.0 - 1.0)</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="soilCarbon">Soil Organic Carbon (%) *</label>
+                            <input type="number" id="soilCarbon" name="soilCarbon" step="0.1" min="0" placeholder="1.8" required>
+                            <small>Soil fertility</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="loanAmount">Loan Amount (USD) *</label>
+                            <input type="number" id="loanAmount" name="loanAmount" step="100" min="0" placeholder="1500" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="fillSampleBtn">Fill Sample Data</button>
+                        <button type="submit" class="btn-primary" id="predictBtn">
+                            <span id="btnText">Get Risk Score</span>
+                            <span id="btnLoader" class="loader" style="display: none;"></span>
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="resultSection" class="result-section" style="display: none;">
+                    <div class="result-header">
+                        <h3>Risk Assessment Result</h3>
+                    </div>
+                    <div id="resultContent" class="result-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI CHATBOT -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open AI Assistant">
+            <svg class="chatbot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="chatbot-badge" id="chatbotBadge">AI</span>
+        </button>
+        
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <span class="chatbot-title">🤖 FieldScore AI Assistant</span>
+                    <span class="chatbot-status">Online</span>
+                </div>
+                <button class="chatbot-close" id="chatbotCloseBtn" aria-label="Close chat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>Hi! I'm your FieldScore AI assistant. I can help you with:</p>
+                        <ul>
+                            <li>Understanding farm risk scoring</li>
+                            <li>Explaining NDVI and satellite data</li>
+                            <li>How to use the demo</li>
+                            <li>Technical questions about the model</li>
+                        </ul>
+                        <p>What would you like to know?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-input-container">
+                <textarea 
+                    class="chatbot-input" 
+                    id="chatbotInput" 
+                    placeholder="Ask me anything about FieldScore AI..."
+                    rows="1"
+                ></textarea>
+                <button class="chatbot-send" id="chatbotSend" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer>
         <div class="container">
             <p><strong>FieldScore AI</strong> | AI500 Hackathon</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">© 2025 FieldScore AI. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">© <span class="current-year">2025</span> FieldScore AI. All rights reserved.</p>
         </div>
     </footer>
+    
+    <!-- External JavaScript -->
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
 

@@ -1,0 +1,89 @@
+# FieldScore AI - Git Ignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# Environment Variables
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Models (large files)
+models/*.pkl
+models/*.joblib
+models/*.h5
+models/*.pt
+
+# Data (if sensitive)
+data/real_farm_data/
+data/production_data/
+*.csv.gz
+
+# Logs
+logs/
+*.log
+
+# Cache
+.cache/
+*.cache
+
+# API Keys
+secrets.json
+credentials.json
+google_earth_engine_key.json
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Deployment
+.netlify/
+.railway/
+docker-compose.override.yml
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
