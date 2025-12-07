@@ -485,71 +485,136 @@
                 <span></span>
             </button>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#problem-solution" class="nav-link">Problem & Solution</a></li>
-                <li><a href="#team" class="nav-link">Team</a></li>
-                <li><a href="#roadmap" class="nav-link">Roadmap</a></li>
-                <li><a href="#solution-approach" class="nav-link">Technical Approach</a></li>
-                <li><a href="#" class="nav-link nav-cta" id="tryDemoBtn">Try Our Demo</a></li>
+                <li><a href="#problem-solution" class="nav-link" data-i18n="nav_problem">Problem & Solution</a></li>
+                <li><a href="#team" class="nav-link" data-i18n="nav_team">Team</a></li>
+                <li><a href="#roadmap" class="nav-link" data-i18n="nav_roadmap">Roadmap</a></li>
+                <li><a href="#solution-approach" class="nav-link" data-i18n="nav_technical">Technical Approach</a></li>
+                <li><a href="#" class="nav-link nav-cta" id="tryDemoBtn" data-i18n="nav_demo">Try Our Demo</a></li>
+                <li class="language-switcher">
+                    <select id="languageSelector" aria-label="Select language">
+                        <option value="en">EN - English</option>
+                        <option value="uz">UZ - O'zbek</option>
+                        <option value="ru">RU - Русский</option>
+                    </select>
+                </li>
             </ul>
         </div>
     </nav>
 
     <div class="hero">
         <div class="container">
-            <h1>🌾 FieldScore AI</h1>
-            <p class="tagline">Micro-Risk Scoring for Smallholder Farmland</p>
-            <p class="subtitle">AI-powered field reliability assessment for Agro-lenders using satellite data and weather analytics</p>
+            <h1 data-i18n="hero_title">🌾 FieldScore AI</h1>
+            <p class="tagline" data-i18n="hero_tagline">Micro-Risk Scoring for Smallholder Farmland</p>
+            <p class="subtitle" data-i18n="hero_subtitle">AI-powered field reliability assessment for Agro-lenders using satellite data and weather analytics</p>
         </div>
     </div>
+
+    <!-- DEMO VIDEO SECTION - COMMENTED OUT UNTIL VIDEO IS UPLOADED -->
+    <!-- 
+    To enable this section:
+    1. Upload your video to: /root/AI500/assets/videos/demo.mp4
+    2. Uncomment this entire section (remove the comment tags)
+    3. The video will automatically display on the website
+    
+    <section id="demo" style="background: #f8f9fa;">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="demo_video_title">Demo Video</h2>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video 
+                        id="demoVideo"
+                        width="100%" 
+                        height="100%" 
+                        controls
+                        poster="assets/videos/thumbnail.jpg"
+                        style="display: none;">
+                        <source src="assets/videos/demo.mp4" type="video/mp4">
+                        <source src="assets/videos/demo.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                    
+                    <div id="videoPlaceholder" style="
+                        background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+                        border-radius: 15px;
+                        padding: 80px 40px;
+                        text-align: center;
+                        color: #6c757d;
+                    ">
+                        <svg width="80" height="80" style="margin-bottom: 20px; opacity: 0.5;">
+                            <circle cx="40" cy="40" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <polygon points="30,25 30,55 55,40" fill="currentColor"/>
+                        </svg>
+                        <h3 style="color: #495057; margin-bottom: 10px;">Demo Video Coming Soon</h3>
+                        <p style="margin-bottom: 0;">Upload your video to: <code>assets/videos/demo.mp4</code></p>
+                    </div>
+                </div>
+                <div class="video-description">
+                    <h3 data-i18n="demo_video_guide_title">How to Use FieldScore AI:</h3>
+                    <ol>
+                        <li data-i18n="demo_step2">Enter farm location coordinates (latitude and longitude)</li>
+                        <li data-i18n="demo_step3">Select crop type and enter farm area in hectares</li>
+                        <li data-i18n="demo_step4">Input NDVI data and weather metrics</li>
+                        <li data-i18n="demo_step5">Click "Calculate Risk Score" to get instant assessment</li>
+                        <li data-i18n="demo_step6">Review the risk category, score, and loan recommendations</li>
+                    </ol>
+                    <a href="#" class="btn" id="tryDemoFromVideo" style="display: inline-block; margin-top: 30px;" data-i18n="nav_demo">Try Our Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
 
     <!-- SECTION 1: PROBLEM & SOLUTION -->
     <section id="problem-solution">
         <div class="container">
             <div class="section-header">
-                <h2>Problem & Solution</h2>
+                <h2 data-i18n="section_problem_title">Problem & Solution</h2>
             </div>
             
             <div class="two-column">
                 <div class="card">
-                    <h3>The Problem</h3>
-                    <p><strong>Domain:</strong> Financial Inclusion & Agriculture</p>
-                    <p>Smallholder farmers in emerging markets face a critical credit access barrier. Over 60% of loan applications are rejected because:</p>
+                    <h3 data-i18n="problem_title">The Problem</h3>
+                    <p><strong data-i18n="problem_domain">Domain:</strong> <span data-i18n="problem_domain_value">Financial Inclusion & Agriculture</span></p>
+                    <p data-i18n="problem_desc">Smallholder farmers in emerging markets face a critical credit access barrier. Over 60% of loan applications are rejected because:</p>
                     <ul>
-                        <li>No credit history or collateral available</li>
-                        <li>Banks cannot assess farmland productivity or risk</li>
-                        <li>Manual field assessments cost $50-200 per farm</li>
-                        <li>High default rates (30-40%) discourage lending</li>
-                        <li>2 billion farmers remain excluded from formal credit</li>
+                        <li data-i18n="problem_point1">No credit history or collateral available</li>
+                        <li data-i18n="problem_point2">Banks cannot assess farmland productivity or risk</li>
+                        <li data-i18n="problem_point3">Manual field assessments cost $50-200 per farm</li>
+                        <li data-i18n="problem_point4">High default rates (30-40%) discourage lending</li>
+                        <li data-i18n="problem_point5">2 billion farmers remain excluded from formal credit</li>
                     </ul>
-                    <p style="margin-top: 15px; font-weight: 600; color: #0f4c2e;">Result: Creditworthy farmers denied loans. Lenders face high losses when approving blindly.</p>
+                    <p style="margin-top: 15px; font-weight: 600; color: #0f4c2e;" data-i18n="problem_result">Result: Creditworthy farmers denied loans. Lenders face high losses when approving blindly.</p>
                 </div>
                 
                 <div class="card">
-                    <h3>Our Solution</h3>
-                    <p><strong>FieldScore AI</strong> generates objective 0-100 risk scores for individual farm plots in under 10 seconds using:</p>
+                    <h3 data-i18n="solution_title">Our Solution</h3>
+                    <p><strong>FieldScore AI</strong> <span data-i18n="solution_desc">generates objective 0-100 risk scores for individual farm plots in under 10 seconds using:</span></p>
                     <ul>
-                        <li>Satellite NDVI data (vegetation health trends)</li>
-                        <li>Weather risk analysis (drought/flood indicators)</li>
-                        <li>Machine learning scoring models</li>
-                        <li>Simple farmer inputs (location, crop, area)</li>
+                        <li data-i18n="solution_point1">Satellite NDVI data (vegetation health trends)</li>
+                        <li data-i18n="solution_point2">Weather risk analysis (drought/flood indicators)</li>
+                        <li data-i18n="solution_point3">Machine learning scoring models</li>
+                        <li data-i18n="solution_point4">Simple farmer inputs (location, crop, area)</li>
                     </ul>
-                    <p style="margin-top: 15px;"><strong>Who Benefits:</strong> Microfinance institutions, rural banks, agricultural cooperatives, government lending programs</p>
-                    <p><strong>Impact:</strong> Faster decisions, lower default risk, expanded credit access for smallholders</p>
+                    <p style="margin-top: 15px;"><strong data-i18n="solution_benefits">Who Benefits:</strong> <span data-i18n="solution_benefits_desc">Microfinance institutions, rural banks, agricultural cooperatives, government lending programs</span></p>
+                    <p><strong data-i18n="solution_impact">Impact:</strong> <span data-i18n="solution_impact_desc">Faster decisions, lower default risk, expanded credit access for smallholders</span></p>
                 </div>
             </div>
             
             <div class="impact-stats">
                 <div class="stat-box">
-                    <div class="number">90%</div>
-                    <div class="label">Faster Loan Processing<br>(weeks → minutes)</div>
+                    <div class="number" data-i18n="stat1_value">90%</div>
+                    <div class="label" data-i18n="stat1_label">Faster Loan Processing<br>(weeks → minutes)</div>
                 </div>
                 <div class="stat-box">
-                    <div class="number">20-30%</div>
-                    <div class="label">Reduction in<br>Default Risk</div>
+                    <div class="number" data-i18n="stat2_value">20-30%</div>
+                    <div class="label" data-i18n="stat2_label">Reduction in<br>Default Risk</div>
                 </div>
                 <div class="stat-box">
-                    <div class="number">$0.10</div>
-                    <div class="label">Cost per Assessment<br>(vs $50-200 manual)</div>
+                    <div class="number" data-i18n="stat3_value">$0.10</div>
+                    <div class="label" data-i18n="stat3_label">Cost per Assessment<br>(vs $50-200)</div>
                 </div>
             </div>
         </div>
@@ -559,14 +624,14 @@
     <section id="team" style="background: #f8f9fa;">
         <div class="container">
             <div class="section-header">
-                <h2>Our Team</h2>
+                <h2 data-i18n="team_title">Our Team</h2>
             </div>
             
             <div class="team-grid">
                 <div class="team-member">
                     <div class="avatar">DA</div>
                     <h3>Dovud Asadov</h3>
-                    <p class="role">ML Engineer</p>
+                    <p class="role" data-i18n="team_role_ml">ML Engineer</p>
                     <div class="links">
                         <a href="https://www.linkedin.com/in/dovud-asadov-913002245/" onclick="return true;">LinkedIn</a> • 
                         <a href="https://github.com/DovudAsadov?tab=repositories" onclick="return true;">GitHub</a>
@@ -576,7 +641,7 @@
                 <div class="team-member">
                     <div class="avatar">BN</div>
                     <h3>Burxon Nurmurodov</h3>
-                    <p class="role">Backend Developer</p>
+                    <p class="role" data-i18n="team_role_backend">Backend Developer</p>
                    
                     <div class="links">
                         <a href="https://www.linkedin.com/in/burkhon-nurmurodov-6356902a3/" onclick="return true;">LinkedIn</a> • 
@@ -587,7 +652,7 @@
                 <div class="team-member">
                     <div class="avatar">RU</div>
                     <h3>Rustambek Urokov</h3>
-                    <p class="role">Data Scientist</p>
+                    <p class="role" data-i18n="team_role_data">Data Scientist</p>
                   
                     <div class="links">
                         <a href="https://www.linkedin.com/in/rustambek-u-0b0023275/" onclick="return true;">LinkedIn</a> • 
@@ -603,12 +668,12 @@
     <section id="roadmap" style="background: #f8f9fa;">
         <div class="container">
             <div class="section-header">
-                <h2>Roadmap & Current Stage</h2>
+                <h2 data-i18n="roadmap_title">Roadmap & Current Stage</h2>
             </div>
             
             <div class="roadmap-stage">
-                <div class="current">Current Stage: PROTOTYPE</div>
-                <p style="margin-top: 20px; color: #666; font-size: 1.05rem;">
+                <div class="current" data-i18n="roadmap_current">Current Stage: PROTOTYPE</div>
+                <p style="margin-top: 20px; color: #666; font-size: 1.05rem;" data-i18n="roadmap_desc">
                     Working proof-of-concept with satellite data retrieval, NDVI calculation, and basic scoring logic validated
                 </p>
             </div>
@@ -616,8 +681,8 @@
             <div class="roadmap-timeline">
                 <div class="roadmap-phase">
                     <div class="phase-number">1</div>
-                    <h3>Feature Engineering</h3>
-                    <p class="duration">Days 1-6</p>
+                    <h3 data-i18n="roadmap_phase1">Feature Engineering</h3>
+                    <p class="duration" data-i18n="roadmap_duration1">Days 1-6</p>
                     <ul>
                         <li>NDVI trend analysis pipeline</li>
                         <li>Anomaly detection (z-scores)</li>
@@ -630,8 +695,8 @@
                 
                 <div class="roadmap-phase">
                     <div class="phase-number">2</div>
-                    <h3>API & Deployment</h3>
-                    <p class="duration">Days 7-12</p>
+                    <h3 data-i18n="roadmap_phase2">API & Deployment</h3>
+                    <p class="duration" data-i18n="roadmap_duration2">Days 7-12</p>
                     <ul>
                         <li>Build FastAPI endpoints</li>
                         <li>GeoJSON validation logic</li>
@@ -644,8 +709,8 @@
                 
                 <div class="roadmap-phase">
                     <div class="phase-number">3</div>
-                    <h3>Production Ready</h3>
-                    <p class="duration">Days 13-21</p>
+                    <h3 data-i18n="roadmap_phase3">Production Ready</h3>
+                    <p class="duration" data-i18n="roadmap_duration3">Days 13-21</p>
                     <ul>
                         <li>User testing with 3-5 MFIs</li>
                         <li>Refine score thresholds</li>
@@ -663,13 +728,13 @@
     <section id="solution-approach">
         <div class="container">
             <div class="section-header">
-                <h2>How We Plan to Solve It</h2>
-                <p>Data-driven approach combining satellite imagery, weather analytics, and machine learning</p>
+                <h2 data-i18n="solution_approach_title">How We Plan to Solve It</h2>
+                <p data-i18n="solution_approach_subtitle">Data-driven approach combining satellite imagery, weather analytics, and machine learning</p>
             </div>
             
             <div class="tech-stack">
                 <div class="tech-category">
-                    <h3>Data Sources</h3>
+                    <h3 data-i18n="data_sources_title">Data Sources</h3>
                     <ul>
                         <li><strong>Sentinel-2:</strong> 10m resolution NDVI time series (12 months) via Google Earth Engine API</li>
                         <li><strong>ERA5 / OpenWeatherMap:</strong> 30-day historical + 7-day forecast precipitation & temperature</li>
@@ -678,7 +743,7 @@
                 </div>
                 
                 <div class="tech-category">
-                    <h3>Feature Engineering</h3>
+                    <h3 data-i18n="feature_engineering_title">Feature Engineering</h3>
                     <ul>
                         <li><strong>NDVI mean:</strong> 12-month baseline productivity</li>
                         <li><strong>NDVI slope:</strong> Trend (improving vs declining)</li>
@@ -690,7 +755,7 @@
                 </div>
                 
                 <div class="tech-category">
-                    <h3>Technology Stack</h3>
+                    <h3 data-i18n="tech_stack_title">Technology Stack</h3>
                     <ul>
                         <li><strong>Backend:</strong> FastAPI, GeoPandas, Google Earth Engine API</li>
                         <li><strong>Frontend:</strong> HTML/CSS/JavaScript, Leaflet.js for map interface</li>
@@ -747,9 +812,9 @@
     <!-- CTA SECTION -->
     <div class="cta-section">
         <div class="container">
-            <h2>Ready to Transform Agricultural Lending</h2>
+            <h2 data-i18n="cta_title">Ready to Transform Agricultural Lending</h2>
             <p>Bringing data-driven risk assessment to 2 billion underserved farmers worldwide</p>
-            <a href="#problem-solution" class="btn">Learn More About FieldScore AI</a>
+            <a href="#problem-solution" class="btn" data-i18n="cta_button">Learn More About FieldScore AI</a>
         </div>
     </div>
 
@@ -884,12 +949,19 @@
                     <span class="chatbot-title">🤖 FieldScore AI Assistant</span>
                     <span class="chatbot-status">Online</span>
                 </div>
-                <button class="chatbot-close" id="chatbotCloseBtn" aria-label="Close chat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
+                <div style="display: flex; gap: 5px; align-items: center;">
+                    <select id="chatLanguage" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ddd; background: white; font-size: 12px; cursor: pointer;">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="uz">🇺🇿 O'zbek</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                    </select>
+                    <button class="chatbot-close" id="chatbotCloseBtn" aria-label="Close chat">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
             </div>
             
             <div class="chatbot-messages" id="chatbotMessages">

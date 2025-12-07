@@ -1,0 +1,9 @@
+🎬 UPLOAD YOUR DEMO VIDEO HERE
+
+Simply upload your video file with this exact name:
+  demo.mp4
+
+The website will automatically detect and display it!
+
+Optional: Add a thumbnail image named:
+  thumbnail.jpg
