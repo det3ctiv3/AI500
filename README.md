@@ -57,24 +57,7 @@ AI500/
 └── CHATBOT_SETUP.md
 ```
 
-## Installation
 
-1. Install dependencies:
-```powershell
-pip install fastapi uvicorn pydantic numpy joblib openai scikit-learn xgboost
-```
-
-2. Configure OpenAI API key in `assets/js/main.js`:
-```javascript
-const OPENAI_API_KEY = 'your-api-key-here';
-```
-
-3. Start the API server:
-```powershell
-python api.py
-```
-
-4. Open `index.html` in your browser
 
 ## API Endpoints
 
@@ -98,12 +81,3 @@ See `API_README.md` for complete documentation.
 - `DATA_DOCUMENTATION.md` - Data specifications and features
 - `TRAINING_DATA_RECOMMENDATIONS.md` - Model training guidelines
 
-## Team
-
-- Dovud Asadov - ML Engineer
-- Burxon Normurodov - MLOps Engineer
-- Rustambek Urokov - Backend Developer
-
-## License
-
-Copyright 2025 FieldScore AI. All rights reserved.

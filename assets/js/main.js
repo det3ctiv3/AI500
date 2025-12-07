@@ -75,7 +75,18 @@ const translations = {
         demo_cta: "Try Our Demo",
         // CTA section
         cta_title: "Ready to Transform Agricultural Lending",
+        cta_subtitle: "Bringing data-driven risk assessment to 2 billion underserved farmers worldwide",
         cta_button: "Learn More About FieldScore AI",
+        // Chatbot
+        chatbot_title: "🤖 FieldScore AI Assistant",
+        chatbot_status: "Online",
+        chatbot_welcome: "Hi! I'm your FieldScore AI assistant. I can help you with:",
+        chatbot_help1: "Understanding how FieldScore AI works",
+        chatbot_help2: "NDVI and satellite data explanation",
+        chatbot_help3: "Risk scoring methodology",
+        chatbot_help4: "Platform features and pricing",
+        chatbot_placeholder: "Ask me anything about FieldScore AI...",
+        chatbot_send: "Send",
         // Footer
         footer_attribution: "Icons by"
     },
@@ -149,7 +160,18 @@ const translations = {
         demo_cta: "Demoni Sinab Ko'ring",
         // CTA section
         cta_title: "Qishloq Xo'jaligi Kreditini O'zgartirishga Tayyormisiz",
+        cta_subtitle: "2 milliard xizmat ko'rsatilmagan fermerlarga ma'lumotlarga asoslangan xavf baholashni olib kelish",
         cta_button: "FieldScore AI Haqida Ko'proq Bilib Oling",
+        // Chatbot
+        chatbot_title: "🤖 FieldScore AI Yordamchisi",
+        chatbot_status: "Onlayn",
+        chatbot_welcome: "Salom! Men FieldScore AI yordamchisiman. Men sizga yordam bera olaman:",
+        chatbot_help1: "FieldScore AI qanday ishlashini tushunish",
+        chatbot_help2: "NDVI va sun'iy yo'ldosh ma'lumotlarini tushuntirish",
+        chatbot_help3: "Xavf baholash metodologiyasi",
+        chatbot_help4: "Platforma xususiyatlari va narxlar",
+        chatbot_placeholder: "FieldScore AI haqida biror narsa so'rang...",
+        chatbot_send: "Yuborish",
         // Footer
         footer_attribution: "Ikonlar tomonidan"
     },
@@ -223,7 +245,18 @@ const translations = {
         demo_cta: "Попробовать Демо",
         // CTA section
         cta_title: "Готовы Трансформировать Сельскохозяйственное Кредитование",
+        cta_subtitle: "Предоставление оценки рисков на основе данных для 2 миллиардов недостаточно обслуживаемых фермеров по всему миру",
         cta_button: "Узнать Больше о FieldScore AI",
+        // Chatbot
+        chatbot_title: "🤖 Помощник FieldScore AI",
+        chatbot_status: "Онлайн",
+        chatbot_welcome: "Привет! Я ваш помощник FieldScore AI. Я могу помочь вам с:",
+        chatbot_help1: "Понимание работы FieldScore AI",
+        chatbot_help2: "Объяснение NDVI и спутниковых данных",
+        chatbot_help3: "Методология оценки рисков",
+        chatbot_help4: "Особенности платформы и цены",
+        chatbot_placeholder: "Спросите меня о FieldScore AI...",
+        chatbot_send: "Отправить",
         // Footer
         footer_attribution: "Иконки от"
     }
@@ -525,6 +558,25 @@ function applyLanguage(lang) {
             element.innerHTML = translation[key];
         }
     });
+    
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        if (translation[key]) {
+            element.placeholder = translation[key];
+        }
+    });
+    
+    // Update chatbot language selector display
+    const chatLangBtn = document.querySelector('.chat-language-btn .current-lang');
+    const langFlags = {
+        'en': '🇬🇧 EN',
+        'uz': '🇺🇿 UZ',
+        'ru': '🇷🇺 RU'
+    };
+    if (chatLangBtn) {
+        chatLangBtn.textContent = langFlags[lang] || langFlags['en'];
+    }
     
     // Update document language attribute
     document.documentElement.lang = lang === 'uz' ? 'uz' : (lang === 'ru' ? 'ru' : 'en');
@@ -912,6 +964,71 @@ function displayResult(result) {
     resultContent.innerHTML = html;
 }
 
+// Store current chat language separately
+let currentChatLanguage = currentLanguage;
+
+/**
+ * Initialize chat language selector
+ */
+function initChatLanguageSelector() {
+    const chatLangBtn = document.getElementById('chatLanguageBtn');
+    const chatLangDropdown = document.getElementById('chatLanguageDropdown');
+    const chatLangOptions = chatLangDropdown?.querySelectorAll('.language-option');
+    const chatCurrentLang = chatLangBtn?.querySelector('.current-lang');
+    
+    if (!chatLangBtn || !chatLangDropdown) return;
+    
+    const langFlags = {
+        'en': '🇬🇧 EN',
+        'uz': '🇺🇿 UZ',
+        'ru': '🇷🇺 RU'
+    };
+    
+    // Set initial language
+    chatCurrentLang.textContent = langFlags[currentLanguage] || langFlags['en'];
+    chatLangOptions?.forEach(option => {
+        if (option.dataset.lang === currentLanguage) {
+            option.classList.add('selected');
+        }
+    });
+    
+    // Toggle dropdown
+    chatLangBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        chatLangBtn.classList.toggle('active');
+        chatLangDropdown.classList.toggle('active');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!chatLangBtn.contains(e.target) && !chatLangDropdown.contains(e.target)) {
+            chatLangBtn.classList.remove('active');
+            chatLangDropdown.classList.remove('active');
+        }
+    });
+    
+    // Handle language selection
+    chatLangOptions?.forEach(option => {
+        option.addEventListener('click', function() {
+            const newLanguage = this.dataset.lang;
+            
+            // Update selected state
+            chatLangOptions.forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+            
+            // Update button text
+            chatCurrentLang.textContent = langFlags[newLanguage];
+            
+            // Close dropdown
+            chatLangBtn.classList.remove('active');
+            chatLangDropdown.classList.remove('active');
+            
+            // Update current chat language (for API calls)
+            currentChatLanguage = newLanguage;
+        });
+    });
+}
+
 /**
  * Initialize AI Chatbot
  */
@@ -922,12 +1039,9 @@ function initChatbot() {
     const chatbotInput = document.getElementById('chatbotInput');
     const chatbotSend = document.getElementById('chatbotSend');
     const chatbotMessages = document.getElementById('chatbotMessages');
-    const chatLanguage = document.getElementById('chatLanguage');
     
-    // Sync chatbot language with main language selector
-    if (chatLanguage) {
-        chatLanguage.value = currentLanguage;
-    }
+    // Initialize chat language selector
+    initChatLanguageSelector();
     
     // Toggle chatbot window
     if (chatbotToggle) {
@@ -935,10 +1049,6 @@ function initChatbot() {
             chatbotWindow.classList.toggle('active');
             if (chatbotWindow.classList.contains('active')) {
                 chatbotInput.focus();
-                // Sync language when opening
-                if (chatLanguage) {
-                    chatLanguage.value = currentLanguage;
-                }
             }
         });
     }
@@ -981,7 +1091,6 @@ async function sendChatMessage() {
     const chatbotInput = document.getElementById('chatbotInput');
     const chatbotMessages = document.getElementById('chatbotMessages');
     const chatbotSend = document.getElementById('chatbotSend');
-    const chatLanguage = document.getElementById('chatLanguage');
     
     const message = chatbotInput.value.trim();
     
@@ -1002,7 +1111,7 @@ async function sendChatMessage() {
     
     try {
         // Call OpenAI API with selected language
-        const response = await getChatbotResponse(message, chatLanguage.value);
+        const response = await getChatbotResponse(message, currentChatLanguage);
         
         // Remove typing indicator
         removeTypingIndicator(typingId);
@@ -1023,7 +1132,7 @@ async function sendChatMessage() {
             'ru': "Извините, у меня проблемы с подключением. Пожалуйста, попробуйте снова или свяжитесь с нашей службой поддержки."
         };
         addChatMessage(
-            errorMessages[chatLanguage.value] || errorMessages['en'],
+            errorMessages[currentChatLanguage] || errorMessages['en'],
             'bot'
         );
     } finally {

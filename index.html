@@ -527,17 +527,12 @@
         </div>
     </div>
 
-    <!-- DEMO VIDEO SECTION - COMMENTED OUT UNTIL VIDEO IS UPLOADED -->
-    <!-- 
-    To enable this section:
-    1. Upload your video to: /root/AI500/assets/videos/demo.mp4
-    2. Uncomment this entire section (remove the comment tags)
-    3. The video will automatically display on the website
-    
-    <section id="demo" style="background: #f8f9fa;">
+    <!-- DEMO VIDEO SECTION -->
+    <section id="demo-video" style="background: #f8f9fa;">
         <div class="container">
             <div class="section-header">
                 <h2 data-i18n="demo_video_title">Demo Video</h2>
+                <p data-i18n="demo_video_subtitle">Watch how to use FieldScore AI to assess farm plot risk in seconds</p>
             </div>
             
             <div class="video-container">
@@ -547,43 +542,26 @@
                         width="100%" 
                         height="100%" 
                         controls
-                        poster="assets/videos/thumbnail.jpg"
-                        style="display: none;">
+                        style="border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
                         <source src="assets/videos/demo.mp4" type="video/mp4">
-                        <source src="assets/videos/demo.webm" type="video/webm">
                         Your browser does not support the video tag.
                     </video>
-                    
-                    <div id="videoPlaceholder" style="
-                        background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
-                        border-radius: 15px;
-                        padding: 80px 40px;
-                        text-align: center;
-                        color: #6c757d;
-                    ">
-                        <svg width="80" height="80" style="margin-bottom: 20px; opacity: 0.5;">
-                            <circle cx="40" cy="40" r="35" fill="none" stroke="currentColor" stroke-width="2"/>
-                            <polygon points="30,25 30,55 55,40" fill="currentColor"/>
-                        </svg>
-                        <h3 style="color: #495057; margin-bottom: 10px;">Demo Video Coming Soon</h3>
-                        <p style="margin-bottom: 0;">Upload your video to: <code>assets/videos/demo.mp4</code></p>
-                    </div>
                 </div>
                 <div class="video-description">
                     <h3 data-i18n="demo_video_guide_title">How to Use FieldScore AI:</h3>
                     <ol>
-                        <li data-i18n="demo_step2">Enter farm location coordinates (latitude and longitude)</li>
-                        <li data-i18n="demo_step3">Select crop type and enter farm area in hectares</li>
-                        <li data-i18n="demo_step4">Input NDVI data and weather metrics</li>
-                        <li data-i18n="demo_step5">Click "Calculate Risk Score" to get instant assessment</li>
-                        <li data-i18n="demo_step6">Review the risk category, score, and loan recommendations</li>
+                        <li data-i18n="demo_step1"><strong>Navigate to the Demo:</strong> Click the 'Try Our Demo' button in the navigation bar or at the bottom of this page</li>
+                        <li data-i18n="demo_step2"><strong>Enter Farm Location:</strong> Provide the latitude and longitude coordinates of the farm plot you want to assess</li>
+                        <li data-i18n="demo_step3"><strong>Specify Crop Type:</strong> Select the crop being grown (e.g., wheat, corn, rice)</li>
+                        <li data-i18n="demo_step4"><strong>Input Farm Size:</strong> Enter the total area of the farm plot in hectares</li>
+                        <li data-i18n="demo_step5"><strong>Submit for Analysis:</strong> Click the submit button to process the request</li>
+                        <li data-i18n="demo_step6"><strong>View Risk Score:</strong> Receive a comprehensive risk score (0-100) along with satellite data visualization and recommendations</li>
                     </ol>
-                    <a href="#" class="btn" id="tryDemoFromVideo" style="display: inline-block; margin-top: 30px;" data-i18n="nav_demo">Try Our Demo</a>
+                    <a href="#demo" class="btn" id="tryDemoFromVideo" style="display: inline-block; margin-top: 30px;" data-i18n="demo_cta">Try Our Demo</a>
                 </div>
             </div>
         </div>
     </section>
-    -->
 
     <!-- SECTION 1: PROBLEM & SOLUTION -->
     <section id="problem-solution">
@@ -831,7 +809,7 @@
     <div class="cta-section">
         <div class="container">
             <h2 data-i18n="cta_title">Ready to Transform Agricultural Lending</h2>
-            <p>Bringing data-driven risk assessment to 2 billion underserved farmers worldwide</p>
+            <p data-i18n="cta_subtitle">Bringing data-driven risk assessment to 2 billion underserved farmers worldwide</p>
             <a href="#problem-solution" class="btn" data-i18n="cta_button">Learn More About FieldScore AI</a>
         </div>
     </div>
@@ -964,15 +942,32 @@
         <div class="chatbot-window" id="chatbotWindow">
             <div class="chatbot-header">
                 <div class="chatbot-header-info">
-                    <span class="chatbot-title">🤖 FieldScore AI Assistant</span>
-                    <span class="chatbot-status">Online</span>
+                    <span class="chatbot-title" data-i18n="chatbot_title">🤖 FieldScore AI Assistant</span>
+                    <span class="chatbot-status" data-i18n="chatbot_status">Online</span>
                 </div>
                 <div style="display: flex; gap: 5px; align-items: center;">
-                    <select id="chatLanguage" style="padding: 5px 10px; border-radius: 5px; border: 1px solid #ddd; background: white; font-size: 12px; cursor: pointer;">
-                        <option value="en">🇬🇧 English</option>
-                        <option value="uz">🇺🇿 O'zbek</option>
-                        <option value="ru">🇷🇺 Русский</option>
-                    </select>
+                    <div class="custom-select-wrapper chat-lang-select">
+                        <button class="language-btn chat-language-btn" id="chatLanguageBtn" aria-label="Select chat language">
+                            <span class="current-lang">🇬🇧 EN</span>
+                            <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="language-dropdown" id="chatLanguageDropdown">
+                            <div class="language-option" data-lang="en">
+                                <span class="lang-code">🇬🇧</span>
+                                <span class="lang-name">English</span>
+                            </div>
+                            <div class="language-option" data-lang="uz">
+                                <span class="lang-code">🇺🇿</span>
+                                <span class="lang-name">O'zbek</span>
+                            </div>
+                            <div class="language-option" data-lang="ru">
+                                <span class="lang-code">🇷🇺</span>
+                                <span class="lang-name">Русский</span>
+                            </div>
+                        </div>
+                    </div>
                     <button class="chatbot-close" id="chatbotCloseBtn" aria-label="Close chat">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -986,14 +981,13 @@
                 <div class="chatbot-message bot-message">
                     <div class="message-avatar">🤖</div>
                     <div class="message-content">
-                        <p>Hi! I'm your FieldScore AI assistant. I can help you with:</p>
+                        <p data-i18n="chatbot_welcome">Hi! I'm your FieldScore AI assistant. I can help you with:</p>
                         <ul>
-                            <li>Understanding farm risk scoring</li>
-                            <li>Explaining NDVI and satellite data</li>
-                            <li>How to use the demo</li>
-                            <li>Technical questions about the model</li>
+                            <li data-i18n="chatbot_help1">Understanding how FieldScore AI works</li>
+                            <li data-i18n="chatbot_help2">NDVI and satellite data explanation</li>
+                            <li data-i18n="chatbot_help3">Risk scoring methodology</li>
+                            <li data-i18n="chatbot_help4">Platform features and pricing</li>
                         </ul>
-                        <p>What would you like to know?</p>
                     </div>
                 </div>
             </div>
@@ -1002,10 +996,11 @@
                 <textarea 
                     class="chatbot-input" 
                     id="chatbotInput" 
-                    placeholder="Ask me anything about FieldScore..."
+                    data-i18n-placeholder="chatbot_placeholder"
+                    placeholder="Ask me anything about FieldScore AI..."
                     rows="1"
                 ></textarea>
-                <button class="chatbot-send" id="chatbotSend" aria-label="Send message">
+                <button class="chatbot-send" id="chatbotSend" aria-label="Send message" title-i18n="chatbot_send">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="22" y1="2" x2="11" y2="13"></line>
                         <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>

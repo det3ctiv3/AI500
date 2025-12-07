@@ -225,6 +225,44 @@ body {
     font-size: 0.875rem;
 }
 
+/* Chat Language Selector */
+.chat-lang-select {
+    position: relative;
+}
+
+.chat-lang-select .language-btn {
+    min-width: 90px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    gap: 5px;
+}
+
+.chat-lang-select .chevron {
+    width: 10px;
+    height: 10px;
+}
+
+.chat-lang-select .language-dropdown {
+    min-width: 120px;
+    right: 0;
+    left: auto;
+}
+
+.chat-lang-select .language-option {
+    padding: 10px 12px;
+    gap: 8px;
+}
+
+.chat-lang-select .lang-code {
+    font-size: 1rem;
+    min-width: 22px;
+}
+
+.chat-lang-select .lang-name {
+    font-size: 0.8rem;
+}
+
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, #0f4c2e 0%, #1a5c3d 50%, #2d8659 100%);
@@ -634,12 +672,17 @@ section:last-child {
 
 .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.15);
     margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.video-wrapper video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
 }
 
 .video-wrapper iframe {
@@ -1141,7 +1184,7 @@ body.menu-open {
         padding: 20px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         transition: left 0.3s ease;
-        gap: 15px;
+        gap: 0;
         max-height: calc(100vh - 70px);
         overflow-y: auto;
     }
@@ -1152,22 +1195,32 @@ body.menu-open {
     
     .nav-link {
         width: 100%;
-        padding: 12px 15px;
+        padding: 22px 15px;
         border-bottom: 1px solid #e5e5e5;
+    }
+    
+    .nav-link:last-of-type {
+        border-bottom: none;
     }
     
     .nav-cta {
         text-align: center;
+        margin-top: 15px;
+        padding: 22px 15px;
+        border-top: 2px solid #e5e5e5;
     }
     
     .language-switcher {
         width: 100%;
-        padding: 15px;
+        padding: 25px 15px;
         justify-content: center;
+        margin-top: 15px;
+        border-top: 2px solid #e5e5e5;
+        display: flex;
     }
     
     .language-switcher::before {
-        left: calc(5% + 15px);
+        display: none;
     }
     
     .language-switcher select {
