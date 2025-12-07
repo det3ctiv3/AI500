@@ -10,6 +10,11 @@ from typing import Optional
 import numpy as np
 import joblib
 import os
+from openai import OpenAI
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -278,6 +283,96 @@ def interpret_features(data: FarmInput) -> dict:
         'drought_status': drought,
         'stability': stability
     }
+
+# Chatbot input model
+class ChatbotInput(BaseModel):
+    message: str = Field(..., description="User message to chatbot")
+
+# Chatbot output model
+class ChatbotOutput(BaseModel):
+    response: str = Field(..., description="Chatbot response")
+
+@app.post("/chat", response_model=ChatbotOutput)
+async def chat(data: ChatbotInput):
+    """
+    AI Chatbot endpoint for answering questions about FieldScore AI
+    """
+    openai_api_key = os.getenv("OPENAI_API_KEY")
+    
+    if not openai_api_key:
+        # Return fallback response if no API key
+        return {"response": get_fallback_response(data.message)}
+    
+    try:
+        # Initialize OpenAI client
+        client = OpenAI(api_key=openai_api_key.strip().strip('"'))
+        
+        # System prompt
+        system_prompt = """You are an AI assistant for FieldScore AI, a farm risk scoring platform for agricultural lenders.
+
+Key information about FieldScore AI:
+- Uses satellite imagery (Sentinel-2 NDVI) and weather data to assess farm creditworthiness
+- Predicts risk scores from 0-100 (higher = lower risk)
+- Risk categories: High (0-30), Medium (31-60), Low (61-100)
+- Key features: NDVI health, vegetation trends, rainfall deficit, soil fertility
+- Helps microfinance institutions make faster, data-driven lending decisions
+- Reduces loan processing time from weeks to minutes
+- Costs $0.10 per assessment vs $50-200 for manual field visits
+
+Be helpful, concise, and informative. Answer questions about:
+- How the platform works
+- NDVI and satellite data
+- Risk scoring methodology
+- Using the demo
+- Technical aspects of the model
+
+Keep responses friendly and under 150 words unless more detail is needed."""
+
+        # Call OpenAI API
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": data.message}
+            ],
+            max_tokens=250,
+            temperature=0.7
+        )
+        
+        return {"response": response.choices[0].message.content.strip()}
+        
+    except Exception as e:
+        print(f"OpenAI API error: {e}")
+        # Fallback to rule-based response
+        return {"response": get_fallback_response(data.message)}
+
+def get_fallback_response(message: str) -> str:
+    """Rule-based fallback responses when OpenAI API is unavailable"""
+    message_lower = message.lower()
+    
+    if any(word in message_lower for word in ['hello', 'hi', 'hey', 'greetings']):
+        return "Hello! I'm the FieldScore AI assistant. I can help you understand how our farm risk scoring platform works. What would you like to know?"
+    
+    elif any(word in message_lower for word in ['ndvi', 'satellite', 'imagery']):
+        return "NDVI (Normalized Difference Vegetation Index) measures crop health using satellite imagery. We analyze 12-month trends from Sentinel-2 satellites to assess farm productivity and predict loan repayment capability. Values range from 0 (bare soil) to 1 (healthy vegetation)."
+    
+    elif any(word in message_lower for word in ['risk', 'score', 'scoring']):
+        return "Our risk scores range from 0-100 (higher = lower risk). We categorize farms as: High Risk (0-30), Medium Risk (31-60), or Low Risk (61-100). The score is calculated using NDVI trends, weather data, soil quality, and farm characteristics."
+    
+    elif any(word in message_lower for word in ['how', 'work', 'works']):
+        return "FieldScore AI analyzes satellite imagery, weather patterns, and soil data to assess farm creditworthiness in minutes. Upload farm details, and our AI model predicts a risk score to help lenders make faster, data-driven decisions—reducing costs from $50-200 to just $0.10 per assessment."
+    
+    elif any(word in message_lower for word in ['demo', 'try', 'test']):
+        return "Try our demo by clicking 'Try Our Demo' button! You'll enter farm details like location, crop type, and NDVI data. Our model then generates a comprehensive risk assessment with recommendations for loan approval."
+    
+    elif any(word in message_lower for word in ['cost', 'price', 'pricing']):
+        return "FieldScore AI costs just $0.10 per farm assessment, compared to traditional field visits that cost $50-200. This makes credit accessible to smallholder farmers while maintaining accuracy and speed."
+    
+    elif any(word in message_lower for word in ['accurate', 'accuracy', 'reliable']):
+        return "Our model achieves 85%+ accuracy by combining multiple data sources: satellite NDVI trends, rainfall patterns, soil organic carbon, and historical farm data. It's been trained on thousands of smallholder farms across East Africa."
+    
+    else:
+        return "I'm here to help you understand FieldScore AI's farm risk scoring platform. You can ask me about: how it works, NDVI and satellite data, risk scoring, trying the demo, pricing, or technical details. What would you like to know?"
 
 # Run with: uvicorn api:app --reload --host 0.0.0.0 --port 8000
 if __name__ == "__main__":

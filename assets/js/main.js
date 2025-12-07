@@ -365,7 +365,7 @@ function fillSampleData() {
  */
 async function predictRiskScore(data) {
     // API endpoint - change this to your deployed backend URL
-    const API_URL = 'http://localhost:8000/predict';
+    const API_URL = '/api/predict';
     
     try {
         const response = await fetch(API_URL, {
@@ -659,58 +659,35 @@ function removeTypingIndicator(typingId) {
  * Get chatbot response from OpenAI API
  */
 async function getChatbotResponse(userMessage) {
-    // OpenAI API configuration
-    const OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY'; // Replace with your actual API key
-    const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+    // Call backend API for chatbot responses
+    const CHAT_API_URL = '/api/chat';
     
-    // System prompt to guide the AI
-    const systemPrompt = `You are an AI assistant for FieldScore AI, a farm risk scoring platform for agricultural lenders.
-
-Key information about FieldScore AI:
-- Uses satellite imagery (Sentinel-2 NDVI) and weather data to assess farm creditworthiness
-- Predicts risk scores from 0-100 (higher = lower risk)
-- Risk categories: High (0-30), Medium (31-60), Low (61-100)
-- Key features: NDVI health, vegetation trends, rainfall deficit, soil fertility
-- Helps microfinance institutions make faster, data-driven lending decisions
-- Reduces loan processing time from weeks to minutes
-- Costs $0.10 per assessment vs $50-200 for manual field visits
-
-Be helpful, concise, and informative. Answer questions about:
-- How the platform works
-- NDVI and satellite data
-- Risk scoring methodology
-- Using the demo
-- Technical aspects of the model
-
-Keep responses friendly and under 150 words unless more detail is needed.`;
-
+    console.log('Sending message to chatbot API:', userMessage);
+    
     try {
-        const response = await fetch(OPENAI_API_URL, {
+        const response = await fetch(CHAT_API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${OPENAI_API_KEY}`
+                'Cache-Control': 'no-cache'
             },
             body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
-                messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: userMessage }
-                ],
-                max_tokens: 250,
-                temperature: 0.7
+                message: userMessage
             })
         });
         
+        console.log('API Response status:', response.status);
+        
         if (!response.ok) {
-            throw new Error(`OpenAI API error: ${response.status}`);
+            throw new Error(`Chat API error: ${response.status}`);
         }
         
         const data = await response.json();
-        return data.choices[0].message.content.trim();
+        console.log('API Response data:', data);
+        return data.response;
         
     } catch (error) {
-        console.error('OpenAI API error:', error);
+        console.error('Chat API error:', error);
         
         // Fallback to rule-based responses if API fails
         return getFallbackResponse(userMessage);
